@@ -1,9 +1,14 @@
-import { Controller, Post, HttpStatus, Res } from '@nestjs/common';
+import { Controller, Post, HttpStatus, Res, Get } from '@nestjs/common';
 import { UserService } from './user.service';
 
-@Controller('users')
+@Controller('api/users')
 export class UserController {
   constructor(private userService: UserService) {}
+
+  @Get('me')
+  getMe() {
+    return 'user';
+  }
 
   @Post()
   async fetchAll(@Res() response) {

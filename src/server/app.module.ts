@@ -7,12 +7,13 @@ import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
-    ViewModule,
     AuthModule,
     UserModule,
     MongooseModule.forRoot(
+      // TODO: move to env
       'mongodb+srv://esteban7590:WTFC9F3tqNevfiWX@cluster0.5qwppq8.mongodb.net/?retryWrites=true&w=majority',
     ),
+    ViewModule,
   ],
   controllers: [],
   providers: [],
