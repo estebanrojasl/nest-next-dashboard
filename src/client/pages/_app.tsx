@@ -1,19 +1,25 @@
+import React from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import Login from '../components/login';
-
-import { useToken } from '../components/utils';
+import Login from '../components/Login';
+import { useGetToken } from '../components/utils';
 
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
-  const { token, setToken } = useToken();
-
-  console.log('token', token);
+  const token = useGetToken();
 
   if (token == null) {
-    return <Login setToken={setToken} />;
+    return (
+      <Login
+        setToken={(userToken: string) => {
+          localStorage.setItem('token', JSON.stringify(userToken));
+          window.dispatchEvent(new Event('storage'));
+        }}
+      />
+    );
   }
+
   return (
     <>
       <Header />

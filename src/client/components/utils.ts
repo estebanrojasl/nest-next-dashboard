@@ -1,12 +1,12 @@
-import React from 'react';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 export function useAxiosFetch({ url }: { url: string }) {
-  const [resource, setResource] = React.useState();
-  const [loading, setLoading] = React.useState<boolean>();
+  const [resource, setResource] = useState();
+  const [loading, setLoading] = useState<boolean>();
   console.log('here');
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function getResource() {
       try {
         setLoading(true);
@@ -37,25 +37,19 @@ export function useAxiosFetch({ url }: { url: string }) {
   return { resource, loading };
 }
 
-export function useToken() {
-  if (typeof window === 'undefined') return;
+export function useGetToken() {
+  const [isLogged, setIsLogged] = useState<string>();
 
-  const getToken = (): string => {
-    const tokenString = localStorage.getItem('token');
-    return tokenString == null ? null : JSON.parse(tokenString);
-  };
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const handleStorage = () => {
+      const token = localStorage.getItem('token');
+      setIsLogged(token);
+    };
 
-  const [token, setToken] = React.useState<string>(getToken());
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
 
-  console.log('token: ', token);
-
-  const saveToken = (userToken) => {
-    localStorage.setItem('token', JSON.stringify(userToken));
-    setToken(userToken.token);
-  };
-
-  return {
-    token: 'as',
-    setToken: saveToken,
-  };
+  return isLogged;
 }
