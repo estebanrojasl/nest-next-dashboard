@@ -36,7 +36,7 @@ export class AuthService {
     return this.signToken(newUser.username);
   }
 
-  async signIn(dto: AuthDto): Promise<{ access_token: string }> {
+  async signIn(dto: AuthDto): Promise<{ access_token: string; user: IUser }> {
     const existingUser = await this.UserModel.findOne({
       username: dto.username,
     }).exec();
@@ -45,7 +45,10 @@ export class AuthService {
       throw new NotFoundException(`User ${dto.username} not found`);
     }
 
-    return this.signToken(existingUser.username);
+    return {
+      access_token: (await this.signToken(existingUser.username)).access_token,
+      user: existingUser,
+    };
   }
 
   async signToken(username: string): Promise<{ access_token: string }> {

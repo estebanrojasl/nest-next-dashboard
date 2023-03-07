@@ -7,7 +7,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 
 import { UserService } from './user.service';
 import { IUser } from '../../interfaces/user.interface';
@@ -19,7 +19,7 @@ import { RoleGuard } from '../auth/role.guard';
 export class UserController {
   constructor(private userService: UserService) {}
   @Get('me')
-  getMe(@Req() req: { user: IUser }) {
+  getMe(@Req() req: Request & { user: IUser }) {
     return req.user;
   }
 

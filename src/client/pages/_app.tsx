@@ -9,6 +9,8 @@ import '../styles/globals.css';
 function MyApp({ Component, pageProps }) {
   const token = useGetToken();
 
+  console.log('token', token);
+
   if (token == null) {
     return (
       <Login
