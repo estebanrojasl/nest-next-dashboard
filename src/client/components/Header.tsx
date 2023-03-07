@@ -46,12 +46,12 @@ const Header = () => {
                     </div>
                     <ul className="py-1">
                       <li>
-                        <a
-                          href="#"
+                        <Link
+                          href="/logout"
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         >
                           Sign out
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>

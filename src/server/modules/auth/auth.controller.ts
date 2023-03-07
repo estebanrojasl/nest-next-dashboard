@@ -16,9 +16,9 @@ export class AuthController {
     const { access_token, user } = await this.authService.signIn(dto);
     res.cookie('accessToken', access_token, {
       sameSite: 'strict',
-      httpOnly: true,
+      httpOnly: false,
     });
 
-    return res.send({ user });
+    return res.send({ user, access_token });
   }
 }

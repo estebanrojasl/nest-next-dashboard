@@ -3,6 +3,7 @@ import axios from 'axios';
 import Image from 'next/image';
 
 import Logo from '../assets/logo.png';
+import { User } from '../types';
 
 const authenticateUser = ({
   url,
@@ -15,6 +16,7 @@ const authenticateUser = ({
     url,
     { username },
     {
+      withCredentials: true,
       headers: {
         Accept: 'application/json',
       },
@@ -29,21 +31,19 @@ const Login = ({ setToken }: { setToken }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const { data } = (await authenticateUser({
+    const response = await authenticateUser({
       url: 'http://localhost:3000/api/auth/signin',
       username,
-    })) as {
-      data: {
-        access_token: string;
-      };
-    };
+    });
 
-    if (data.access_token == null) {
+    // console.log(response);
+
+    if (response.data.access_token == null) {
       setError(true);
       return;
     }
 
-    setToken(data.access_token);
+    setToken(response.data.access_token);
   };
 
   const onSignUp = async (e) => {

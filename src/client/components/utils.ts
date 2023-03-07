@@ -11,6 +11,7 @@ export function useAxiosFetch({ url }: { url: string }) {
       try {
         setLoading(true);
         const { data } = await axios.get(url, {
+          withCredentials: true,
           headers: {
             Accept: 'application/json',
             // Authorization: `Bearer ${token}`,
@@ -37,19 +38,42 @@ export function useAxiosFetch({ url }: { url: string }) {
   return { resource, loading };
 }
 
-export function useGetToken() {
-  const [isLogged, setIsLogged] = useState<string>();
+export const useLocalStorage = ({
+  key,
+  initialValue,
+}: {
+  key: string;
+  initialValue;
+}) => {
+  const [storedValue, setStoredValue] = useState(initialValue);
+
+  const setValue = (value) => {
+    try {
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removeValue = (key) => {
+    try {
+      window.localStorage.removeItem(key);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const handleStorage = () => {
-      const token = localStorage.getItem('token');
-      setIsLogged(token);
-    };
-
-    window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
+    try {
+      const item = window.localStorage.getItem(key);
+      setStoredValue(item ? JSON.parse(item) : initialValue);
+    } catch (error) {
+      console.log(error);
+      return setStoredValue(initialValue);
+    }
   }, []);
-
-  return isLogged;
-}
+  return [storedValue, setValue, removeValue];
+};
