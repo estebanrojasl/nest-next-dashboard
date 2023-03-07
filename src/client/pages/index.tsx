@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 const Home: NextPage = () => {
   return (
     <h1 className="text-3xl text-amber-500 font-bold underline">
-      Hello world!
+      Here's the dash
     </h1>
   );
 };
