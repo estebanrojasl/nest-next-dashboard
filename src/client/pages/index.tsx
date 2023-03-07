@@ -2,7 +2,11 @@ import React from 'react';
 import { NextPage } from 'next';
 
 const Home: NextPage = () => {
-  return <h1>Hello, World!</h1>;
+  return (
+    <h1 className="text-3xl text-amber-500 font-bold underline">
+      Hello world!
+    </h1>
+  );
 };
 
 // export const getServerSideProps = async () => {
