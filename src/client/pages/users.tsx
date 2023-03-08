@@ -1,15 +1,7 @@
 import React from 'react';
 import { NextPage } from 'next';
-import {
-  Card,
-  Table,
-  TableHead,
-  TableRow,
-  TableHeaderCell,
-  TableBody,
-  TableCell,
-  Badge,
-} from '@tremor/react';
+
+import moment from 'moment';
 
 import { useAxiosFetch, useLocalStorage } from '../components/utils';
 import { User } from '../types';
@@ -31,33 +23,54 @@ const Users: NextPage = () => {
     <div className="p-4 mt-14 ml-64" style={{ minHeight: 700 }}>
       <PageTitle title="Users" />
       <div className="p-6" />
-      <Card>
-        <Table marginTop="mt-5">
-          <TableHead>
-            <TableRow>
-              <TableHeaderCell>Username</TableHeaderCell>
-              <TableHeaderCell>Role</TableHeaderCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {resource?.users.map((item) => (
-              <TableRow key={item._id}>
-                <TableCell>{item.username}</TableCell>
 
-                <TableCell>
-                  <Badge
-                    text={item.role}
-                    color="blue"
-                    size="sm"
-                    tooltip=""
-                    marginTop="mt-0"
-                  />
-                </TableCell>
-              </TableRow>
+      <div className="relative overflow-x-auto rounded-lg">
+        <table className="w-full text-sm text-left text-gray-500">
+          <thead className="text-gray-500 bg-gray-100">
+            <tr>
+              <th className="px-6 py-3">Username</th>
+              <th className="px-6 py-3">Role</th>
+              <th className="px-6 py-3">Created</th>
+              <th className="px-6 py-3">Updated</th>
+            </tr>
+          </thead>
+          <tbody>
+            {resource?.users.map((user) => (
+              <>
+                <tr className="border-b border-gray-200">
+                  <th
+                    scope="row"
+                    className="p-4 font-medium text-gray-900 whitespace-nowrap"
+                  >
+                    {user.username}
+                  </th>
+                  <td className="p-4 capitalize">
+                    {user.role === 'admin' ? (
+                      <span className="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">
+                        {user.role}
+                      </span>
+                    ) : (
+                      <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">
+                        {user.role}
+                      </span>
+                    )}
+                  </td>
+                  <td className="p-4">
+                    {user.createdAt
+                      ? moment(user.createdAt).format('DD-MM-YYYY')
+                      : '-'}
+                  </td>
+                  <td className="p-4">
+                    {user.updatedAt
+                      ? moment(user.updatedAt).format('DD-MM-YYYY')
+                      : '-'}
+                  </td>
+                </tr>
+              </>
             ))}
-          </TableBody>
-        </Table>
-      </Card>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

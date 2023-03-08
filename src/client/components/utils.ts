@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import router from 'next/router';
 import axios from 'axios';
 
 export function useAxiosFetch({ url, token }: { url: string; token: string }) {
@@ -21,6 +22,9 @@ export function useAxiosFetch({ url, token }: { url: string; token: string }) {
         setResource(data);
       } catch (error) {
         setError(error.response.status);
+        if (error.response.status === 401) {
+          router.push('/logout');
+        }
         if (axios.isAxiosError(error)) {
           console.log('error message: ', error.message);
           return error.message;
@@ -79,7 +83,3 @@ export const useLocalStorage = ({
   }, []);
   return [storedValue, setValue, removeValue];
 };
-
-export function capitalize(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}

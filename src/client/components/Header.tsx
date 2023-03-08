@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { capitalize, useAxiosFetch } from './utils';
+import { useAxiosFetch } from './utils';
 import { User } from '../types';
 
 import Logo from '../assets/logo.png';
@@ -24,6 +24,7 @@ const Header = ({ token }: { token?: string }) => {
         <div className="px-3 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start">
+              {/*  why is this one not triggering a re-render */}
               <Link href="/" className="flex ml-2 mr-24">
                 <Image src={Logo} className="w-32 h-auto" alt="Logo" />
               </Link>
@@ -50,11 +51,11 @@ const Header = ({ token }: { token?: string }) => {
                     style={{ top: '60px' }}
                   >
                     <div className="px-4 py-3">
-                      <p className="text-sm text-gray-900">
-                        {capitalize(user?.username)}
+                      <p className="text-sm text-gray-900 capitalize">
+                        {user?.username}
                       </p>
-                      <p className="text-sm font-medium text-gray-500 truncate">
-                        {capitalize(user?.role)}
+                      <p className="text-sm font-medium text-gray-500 truncate capitalize">
+                        {user?.role}
                       </p>
                     </div>
                     <ul className="py-1">
