@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <Header />
+      <Header token={token} />
       <Component {...pageProps} />
       <Footer />
     </>
