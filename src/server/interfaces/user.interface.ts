@@ -1,5 +1,6 @@
-import { Document } from 'mongoose';
-export interface IUser extends Document {
+export interface IUser {
   username: string;
   role: string;
+  createdAt: string;
+  updatedAt: string;
 }

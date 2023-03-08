@@ -17,7 +17,7 @@ export class AuthService {
     private jwt: JwtService,
   ) {}
 
-  async signUp(dto: AuthDto): Promise<{ access_token: string }> {
+  async signUp(dto: AuthDto): Promise<{ access_token: string; user: IUser }> {
     const existingUser = await this.UserModel.findOne({
       username: dto.username,
     }).exec();
@@ -33,7 +33,10 @@ export class AuthService {
 
     newUser.save();
 
-    return this.signToken(newUser.username);
+    return {
+      access_token: (await this.signToken(newUser.username)).access_token,
+      user: newUser,
+    };
   }
 
   async signIn(dto: AuthDto): Promise<{ access_token: string; user: IUser }> {

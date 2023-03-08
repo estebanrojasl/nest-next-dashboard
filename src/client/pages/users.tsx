@@ -36,37 +36,35 @@ const Users: NextPage = () => {
           </thead>
           <tbody>
             {resource?.users.map((user) => (
-              <>
-                <tr className="border-b border-gray-200">
-                  <th
-                    scope="row"
-                    className="p-4 font-medium text-gray-900 whitespace-nowrap"
-                  >
-                    {user.username}
-                  </th>
-                  <td className="p-4 capitalize">
-                    {user.role === 'admin' ? (
-                      <span className="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">
-                        {user.role}
-                      </span>
-                    ) : (
-                      <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">
-                        {user.role}
-                      </span>
-                    )}
-                  </td>
-                  <td className="p-4">
-                    {user.createdAt
-                      ? moment(user.createdAt).format('DD-MM-YYYY')
-                      : '-'}
-                  </td>
-                  <td className="p-4">
-                    {user.updatedAt
-                      ? moment(user.updatedAt).format('DD-MM-YYYY')
-                      : '-'}
-                  </td>
-                </tr>
-              </>
+              <tr key={user._id} className="border-b border-gray-200">
+                <th
+                  scope="row"
+                  className="p-4 font-medium text-gray-900 whitespace-nowrap"
+                >
+                  {user.username}
+                </th>
+                <td className="p-4 capitalize">
+                  {user.role === 'admin' ? (
+                    <span className="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">
+                      {user.role}
+                    </span>
+                  ) : (
+                    <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">
+                      {user.role}
+                    </span>
+                  )}
+                </td>
+                <td className="p-4">
+                  {user.createdAt
+                    ? moment(user.createdAt).format('DD-MM-YYYY')
+                    : '-'}
+                </td>
+                <td className="p-4">
+                  {user.updatedAt
+                    ? moment(user.updatedAt).format('DD-MM-YYYY')
+                    : '-'}
+                </td>
+              </tr>
             ))}
           </tbody>
         </table>
