@@ -8,7 +8,7 @@ const Dashboard: NextPage = () => {
     <div className="p-4 mt-14 ml-64" style={{ minHeight: 700 }}>
       <PageTitle title="Dashboard" />
 
-      <div className="p-6" />
+      <div className="p-2" />
 
       <div className="grid grid-cols-3 gap-4 mb-4">
         <div className="flex items-center justify-center h-24 rounded bg-gray-200">

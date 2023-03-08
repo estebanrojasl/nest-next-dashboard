@@ -25,7 +25,7 @@ const Users: NextPage = () => {
   return (
     <div className="p-4 mt-14 ml-64" style={{ minHeight: 700 }}>
       <PageTitle title="Users" />
-      <div className="p-6" />
+      <div className="p-2" />
 
       <div className="relative overflow-x-auto rounded-lg">
         <table className="w-full text-sm text-left text-gray-500">
