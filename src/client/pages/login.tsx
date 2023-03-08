@@ -47,6 +47,8 @@ const Login = ({
       return;
     }
 
+    console.log(setToken);
+
     setToken(response.data.access_token);
   };
 

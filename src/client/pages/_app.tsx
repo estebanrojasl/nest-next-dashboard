@@ -13,6 +13,8 @@ function MyApp({ Component, pageProps }) {
     initialValue: null,
   });
 
+  // when a refresh happens, the token is lost so users are redirected to login
+  // while the token is being fetched from localStorage
   if (token == null) {
     return (
       <Login
