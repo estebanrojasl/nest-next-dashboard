@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-export function useAxiosFetch({ url }: { url: string }) {
+export function useAxiosFetch({ url, token }: { url: string; token: string }) {
   const [resource, setResource] = useState();
   const [loading, setLoading] = useState<boolean>();
-  console.log('here');
 
   useEffect(() => {
     async function getResource() {
@@ -14,7 +13,7 @@ export function useAxiosFetch({ url }: { url: string }) {
           withCredentials: true,
           headers: {
             Accept: 'application/json',
-            // Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
 

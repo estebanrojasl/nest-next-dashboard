@@ -62,7 +62,6 @@ const Login = ({ setToken }: { setToken }) => {
     if (response == null) {
       setError(true);
     } else {
-      console.log('what is this');
       setSignedUp(false);
     }
   };
