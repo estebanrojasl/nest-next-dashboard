@@ -2,12 +2,13 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import Logo from '../assets/logo.png';
-import Avatar from '../assets/avatar.png';
-import { useAxiosFetch } from './utils';
+import { capitalize, useAxiosFetch } from './utils';
 import { User } from '../types';
 
-const Header = ({ token }: { token }) => {
+import Logo from '../assets/logo.png';
+import Avatar from '../assets/avatar.png';
+
+const Header = ({ token }: { token?: string }) => {
   const [showMenu, setShowMenu] = React.useState(false);
 
   const { resource: user } = useAxiosFetch({
@@ -23,9 +24,9 @@ const Header = ({ token }: { token }) => {
         <div className="px-3 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start">
-              <a href="/" className="flex ml-2 mr-24">
+              <Link href="/" className="flex ml-2 mr-24">
                 <Image src={Logo} className="w-32 h-auto" alt="Logo" />
-              </a>
+              </Link>
             </div>
             <div className="flex items-center">
               <div className="flex flex-col ml-3">
@@ -33,10 +34,8 @@ const Header = ({ token }: { token }) => {
                   <button
                     type="button"
                     className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300"
-                    aria-expanded="false"
                     onClick={() => setShowMenu(!showMenu)}
                   >
-                    <span className="sr-only">Open user menu</span>
                     <Image
                       className="w-8 h-8 rounded-full"
                       src={Avatar}
@@ -44,13 +43,19 @@ const Header = ({ token }: { token }) => {
                     />
                   </button>
                 </div>
+
                 {showMenu && (
                   <div
                     className="absolute right-4 z-50 text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg"
                     style={{ top: '60px' }}
                   >
                     <div className="px-4 py-3">
-                      <p className="text-sm text-gray-900">Neil Sims</p>
+                      <p className="text-sm text-gray-900">
+                        {capitalize(user?.username)}
+                      </p>
+                      <p className="text-sm font-medium text-gray-500 truncate">
+                        {capitalize(user?.role)}
+                      </p>
                     </div>
                     <ul className="py-1">
                       <li>
@@ -58,7 +63,7 @@ const Header = ({ token }: { token }) => {
                           href="/logout"
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         >
-                          Sign out
+                          Log out
                         </Link>
                       </li>
                     </ul>
@@ -75,7 +80,7 @@ const Header = ({ token }: { token }) => {
           <ul className="space-y-2">
             <li>
               <a
-                href="/"
+                href="/dashboard"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100"
               >
                 <svg

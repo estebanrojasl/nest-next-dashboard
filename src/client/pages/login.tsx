@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
+import router from 'next/router';
 
 import Logo from '../assets/logo.png';
-import { User } from '../types';
 
 const authenticateUser = ({
   url,
@@ -24,7 +24,13 @@ const authenticateUser = ({
   );
 };
 
-const Login = ({ setToken }: { setToken }) => {
+const Login = ({
+  token,
+  setToken,
+}: {
+  token?: string;
+  setToken: (userToken: string) => void;
+}) => {
   const [username, setUsername] = React.useState<string>('');
   const [signedUp, setSignedUp] = React.useState<boolean>(true);
   const [error, setError] = React.useState<boolean>(false);
@@ -35,8 +41,6 @@ const Login = ({ setToken }: { setToken }) => {
       url: 'http://localhost:3000/api/auth/signin',
       username,
     });
-
-    // console.log(response);
 
     if (response.data.access_token == null) {
       setError(true);
@@ -65,6 +69,12 @@ const Login = ({ setToken }: { setToken }) => {
       setSignedUp(false);
     }
   };
+
+  useEffect(() => {
+    if (token != null) {
+      router.push('/dashboard');
+    }
+  }, [token]);
 
   return (
     <div className="max-w-2xl mx-auto" style={{ minHeight: 700 }}>
@@ -101,6 +111,7 @@ const Login = ({ setToken }: { setToken }) => {
 
           <input
             type="submit"
+            disabled={username.length < 8}
             className={`${
               signedUp !== true ? 'animate-bounce' : ''
             } border rounded hover:bg-gray-100 p-1`}
@@ -109,6 +120,7 @@ const Login = ({ setToken }: { setToken }) => {
           <div className="p-2" />
           {signedUp && (
             <button
+              disabled={username.length < 8}
               className="border rounded border-orange-600 bg-orange-500 hover:bg-orange-400 text-white p-1"
               onClick={onSignUp}
             >

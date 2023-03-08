@@ -12,7 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(@InjectModel(User.name) private UserModel: Model<UserDocument>) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
-        JwtStrategy.extractJWT,
+        // JwtStrategy.extractJWT,
         ExtractJwt.fromAuthHeaderAsBearerToken(),
       ]),
       ignoreExpiration: false,

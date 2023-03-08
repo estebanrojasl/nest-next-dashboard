@@ -14,10 +14,10 @@ export class AuthController {
   @Post('signin')
   async signIn(@Body() dto: AuthDto, @Res() res: any) {
     const { access_token, user } = await this.authService.signIn(dto);
-    res.cookie('accessToken', access_token, {
-      sameSite: 'strict',
-      httpOnly: false,
-    });
+    // res.cookie('accessToken', access_token, {
+    //   sameSite: 'strict',
+    //   httpOnly: false,
+    // });
 
     return res.send({ user, access_token });
   }

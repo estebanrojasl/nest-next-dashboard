@@ -1,17 +1,25 @@
 import React, { useEffect } from 'react';
 
-import { useLocalStorage } from '../components/utils';
 import Loading from '../components/Loading';
+import { useRouter } from 'next/router';
 
-const Logout = () => {
-  const [_, setToken, removeToken] = useLocalStorage({
-    key: 'accessToken',
-    initialValue: null,
-  });
-
+const Logout = ({
+  token,
+  setToken,
+  removeToken,
+}: {
+  token: string;
+  setToken: (userToken: null) => void;
+  removeToken: () => void;
+}) => {
+  const router = useRouter();
   useEffect(() => {
-    removeToken('accessToken');
-  }, [setToken]);
+    setToken(null);
+
+    removeToken();
+  }, [token]);
+
+  router.push('/login');
 
   return <Loading />;
 };
