@@ -2,7 +2,17 @@ import { useEffect, useState } from 'react';
 import router from 'next/router';
 import axios from 'axios';
 
-export function useAxiosFetch({ url, token }: { url: string; token: string }) {
+export function useAxiosFetch({
+  url,
+  method = 'GET',
+  token,
+  payload,
+}: {
+  url: string;
+  method?: 'POST' | 'GET';
+  token: string;
+  payload?: string;
+}) {
   const [resource, setResource] = useState();
   const [loading, setLoading] = useState<boolean>();
   const [error, setError] = useState<number>();
@@ -12,11 +22,16 @@ export function useAxiosFetch({ url, token }: { url: string; token: string }) {
       if (token == null) return;
       try {
         setLoading(true);
-        const { data } = await axios.get(url, {
+        const { data } = await axios.request({
+          data: {
+            ...(payload != null ? { payload } : {}),
+          },
+          method,
           headers: {
             Accept: 'application/json',
             Authorization: `Bearer ${token}`,
           },
+          url,
         });
 
         setResource(data);
@@ -38,7 +53,7 @@ export function useAxiosFetch({ url, token }: { url: string; token: string }) {
     }
 
     getResource();
-  }, [url, token]);
+  }, [url, token, payload]);
 
   return { resource, loading, error };
 }

@@ -1,7 +1,9 @@
 import {
+  Body,
   Controller,
   Get,
   HttpStatus,
+  Post,
   Req,
   Res,
   UseGuards,
@@ -25,9 +27,9 @@ export class UserController {
 
   @Roles('admin')
   @UseGuards(RoleGuard)
-  @Get()
-  async fetchAll(@Res() response: Response) {
-    const users = await this.userService.readAll();
+  @Post()
+  async fetchAll(@Body() body: { payload: string }, @Res() response: Response) {
+    const users = await this.userService.readAll(body.payload);
     return response.status(HttpStatus.OK).json({
       users,
     });

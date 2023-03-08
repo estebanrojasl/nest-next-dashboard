@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NextPage } from 'next';
 
 import moment from 'moment';
@@ -11,9 +11,12 @@ import PageTitle from '../components/PageTitle';
 
 const Users: NextPage = () => {
   const [token] = useLocalStorage({ key: 'accessToken', initialValue: null });
+  const [sort, setSort] = useState<string>();
 
   const { resource } = useAxiosFetch({
     url: 'http://localhost:3000/api/users',
+    method: 'POST',
+    payload: JSON.stringify({ sort }),
     token,
   }) as { resource?: { users: User[] } };
 
@@ -28,10 +31,50 @@ const Users: NextPage = () => {
         <table className="w-full text-sm text-left text-gray-500">
           <thead className="text-gray-500 bg-gray-100">
             <tr>
-              <th className="px-6 py-3">Username</th>
-              <th className="px-6 py-3">Role</th>
-              <th className="px-6 py-3">Created</th>
-              <th className="px-6 py-3">Updated</th>
+              <th className="px-6 py-3">
+                <button
+                  onClick={() =>
+                    setSort((prevState) =>
+                      prevState === 'username' ? '-username' : 'username',
+                    )
+                  }
+                >
+                  Username
+                </button>
+              </th>
+              <th className="px-6 py-3">
+                <button
+                  onClick={() =>
+                    setSort((prevState) =>
+                      prevState === 'role' ? '-role' : 'role',
+                    )
+                  }
+                >
+                  Role
+                </button>
+              </th>
+              <th className="px-6 py-3">
+                <button
+                  onClick={() =>
+                    setSort((prevState) =>
+                      prevState === 'createdAt' ? '-createdAt' : 'createdAt',
+                    )
+                  }
+                >
+                  Created
+                </button>
+              </th>
+              <th className="px-6 py-3">
+                <button
+                  onClick={() =>
+                    setSort((prevState) =>
+                      prevState === 'updatedAt' ? '-updatedAt' : 'updatedAt',
+                    )
+                  }
+                >
+                  Updated
+                </button>
+              </th>
             </tr>
           </thead>
           <tbody>
