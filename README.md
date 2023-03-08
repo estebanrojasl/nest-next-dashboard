@@ -25,3 +25,9 @@ $ docker-compose build
 ```
 $ docker-compose run -p "3000:3000" api
 ```
+
+### Open in browser
+
+```
+http://localhost:3000/
+```
