@@ -17,11 +17,11 @@ $ yarn run start:dev
 ### Build docker
 
 ```
-    $ docker-compose build
+$ docker-compose build
 ```
 
 ### Run docker
 
 ```
-    $ docker-compose run -p "3000:3000" api
+$ docker-compose run -p "3000:3000" api
 ```
