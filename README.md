@@ -1,10 +1,10 @@
-## Installation
+### Installation
 
 ```bash
 $ yarn install
 ```
 
-## Running the app
+### Running the app
 
 ```bash
 # development
@@ -13,6 +13,8 @@ $ yarn run start
 # watch mode
 $ yarn run start:dev
 ```
+
+## On Docker
 
 ### Build docker
 
@@ -63,4 +65,14 @@ else
     echo "Unable to detect OS"
 fi
 
+#end
 ```
+
+## Usage
+
+1. Run the app either way as explained below
+2. Create a user by signing up (`alejandro` gives you admin access)
+3. Log in
+4. Visit the mocked dashboard
+5. If you are an admin user, visit `/admin` and `/users` pages on the side menu
+6. Finish the session by clicking on the avatar on the header and then log out
