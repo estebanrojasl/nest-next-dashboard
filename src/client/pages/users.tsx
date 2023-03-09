@@ -3,14 +3,13 @@ import { NextPage } from 'next';
 
 import moment from 'moment';
 
-import { useAxiosFetch, useLocalStorage } from '../components/utils';
+import { useAxiosFetch } from '../components/utils';
 import { User } from '../types';
 
 import Loading from '../components/Loading';
 import PageTitle from '../components/PageTitle';
 
-const Users: NextPage = () => {
-  const [token] = useLocalStorage({ key: 'accessToken' });
+const Users: NextPage = ({ token }: { token?: string }) => {
   const [sort, setSort] = useState<string>();
 
   const { resource } = useAxiosFetch({
