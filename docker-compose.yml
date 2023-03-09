@@ -8,6 +8,6 @@ services:
     volumes:
       - .:/usr/src/app
     # Run a command against the development stage of the image
-    command: yarn start:dev
+    command: yarn start
     ports:
       - 3000:3000
