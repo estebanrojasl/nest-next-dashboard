@@ -19,7 +19,8 @@ export function useAxiosFetch({
 
   useEffect(() => {
     async function getResource() {
-      if (token == null) return;
+      if (token === '') return;
+
       try {
         setLoading(true);
         const { data } = await axios.request({
@@ -60,12 +61,10 @@ export function useAxiosFetch({
 
 export const useLocalStorage = ({
   key,
-  initialValue,
 }: {
   key: string;
-  initialValue;
-}) => {
-  const [storedValue, setStoredValue] = useState(initialValue);
+}): [string, (value: string) => void, () => void] => {
+  const [storedValue, setStoredValue] = useState('');
 
   const setValue = (value) => {
     try {
@@ -89,10 +88,10 @@ export const useLocalStorage = ({
   useEffect(() => {
     try {
       const item = window.localStorage.getItem(key);
-      setStoredValue(item ? JSON.parse(item) : initialValue);
+      setStoredValue(item != null ? JSON.parse(item) : null);
     } catch (error) {
       console.log(error);
-      return setStoredValue(initialValue);
+      return setStoredValue(null);
     }
   }, []);
   return [storedValue, setValue, removeValue];

@@ -4,17 +4,19 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Login from '../pages/login';
 import { useLocalStorage } from '../components/utils';
+import Loading from '../components/Loading';
 
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
   const [token, setToken, removeToken] = useLocalStorage({
     key: 'accessToken',
-    initialValue: null,
   });
 
-  // when a refresh happens, the token is lost so users are redirected to login
-  // while the token is being fetched from localStorage
+  if (token == '') {
+    return <Loading />;
+  }
+
   if (token == null) {
     return (
       <Login

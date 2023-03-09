@@ -10,7 +10,7 @@ import Loading from '../components/Loading';
 import PageTitle from '../components/PageTitle';
 
 const Users: NextPage = () => {
-  const [token] = useLocalStorage({ key: 'accessToken', initialValue: null });
+  const [token] = useLocalStorage({ key: 'accessToken' });
   const [sort, setSort] = useState<string>();
 
   const { resource } = useAxiosFetch({
