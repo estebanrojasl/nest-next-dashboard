@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
     key: 'accessToken',
   });
 
-  if (token == '') {
+  if (token === '') {
     return <Loading />;
   }
 

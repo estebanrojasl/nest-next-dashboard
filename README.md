@@ -74,5 +74,5 @@ fi
 2. Create a user by signing up (`alejandro` gives you admin access)
 3. Log in
 4. Visit the mocked dashboard
-5. If you are an admin user, visit `/admin` and `/users` pages on the side menu
+5. If you are an admin user, visit the mocked `/admin` page on the side menu or the `/users` one and click on any column header to reorder the list
 6. Finish the session by clicking on the avatar on the header and then log out
