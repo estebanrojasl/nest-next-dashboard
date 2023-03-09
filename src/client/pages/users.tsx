@@ -4,10 +4,10 @@ import { NextPage } from 'next';
 import moment from 'moment';
 
 import { useAxiosFetch } from '../components/utils';
-import { User } from '../types';
-
 import Loading from '../components/Loading';
 import PageTitle from '../components/PageTitle';
+import RoleBadge from '../components/RoleBadge';
+import { User } from '../types';
 
 const Users: NextPage = ({ token }: { token?: string }) => {
   const [sort, setSort] = useState<string>();
@@ -30,7 +30,7 @@ const Users: NextPage = ({ token }: { token?: string }) => {
         <table className="w-full text-sm text-left text-gray-500">
           <thead className="text-gray-500 bg-gray-100">
             <tr>
-              <th className="px-6 py-3">
+              <th className="px-6 py-3 hover:text-orange-600">
                 <button
                   onClick={() =>
                     setSort((prevState) =>
@@ -41,7 +41,7 @@ const Users: NextPage = ({ token }: { token?: string }) => {
                   Username
                 </button>
               </th>
-              <th className="px-6 py-3">
+              <th className="px-6 py-3 hover:text-orange-600">
                 <button
                   onClick={() =>
                     setSort((prevState) =>
@@ -52,7 +52,7 @@ const Users: NextPage = ({ token }: { token?: string }) => {
                   Role
                 </button>
               </th>
-              <th className="px-6 py-3">
+              <th className="px-6 py-3 hover:text-orange-600">
                 <button
                   onClick={() =>
                     setSort((prevState) =>
@@ -63,7 +63,7 @@ const Users: NextPage = ({ token }: { token?: string }) => {
                   Created
                 </button>
               </th>
-              <th className="px-6 py-3">
+              <th className="px-6 py-3 hover:text-orange-600">
                 <button
                   onClick={() =>
                     setSort((prevState) =>
@@ -86,15 +86,7 @@ const Users: NextPage = ({ token }: { token?: string }) => {
                   {user.username}
                 </th>
                 <td className="p-4 capitalize">
-                  {user.role === 'admin' ? (
-                    <span className="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">
-                      {user.role}
-                    </span>
-                  ) : (
-                    <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">
-                      {user.role}
-                    </span>
-                  )}
+                  <RoleBadge role={user.role} />
                 </td>
                 <td className="p-4">
                   {user.createdAt

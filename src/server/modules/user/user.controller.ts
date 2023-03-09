@@ -29,9 +29,10 @@ export class UserController {
   @UseGuards(RoleGuard)
   @Post()
   async fetchAll(@Body() body: { payload: string }, @Res() response: Response) {
-    const users = await this.userService.readAll(body.payload);
+    const { users, count } = await this.userService.readAll(body.payload);
     return response.status(HttpStatus.OK).json({
       users,
+      count,
     });
   }
 }
